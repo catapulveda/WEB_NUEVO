@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ventanas Emergentes</title>
+        
+        <link rel="stylesheet" href="css/dialogosModales/custombox.min.css">
+        <link rel="stylesheet" href="http://dixso.github.io/custombox/assets/css/theDocs.all.min.css">
+        <style type="text/css" media="screen">
+          @font-face {
+  font-family: 'Oxygen';
+  src: url(../fonts/oxygen-st-regular.ttf);
+}
+.logo {
+  color: #333;
+  font-family: 'Oxymgen';
+  margin: 0;
+  padding: 0;
+}
+.site-header:not(.navbar-sm) .logo {
+  font-size: 40px;
+}
+.logo > span {
+  color: #fc5e5e;
+}
+.demo-modal {
+  background-color: #FFF;
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
+  padding: 24px;
+  width: 60%;
+  position: relative;
+  display: none;
+}
+.demo-modal-multiple-1 {
+  width: 40%;
+}
+.table-demo i {
+  font-size: 11px;
+  color: #999;
+}
+.demo-overview button {
+  margin: 0 5px 5px 0;
+}
+.btn-firstup:first-letter {
+  text-transform: uppercase;
+}
+.tabs  > .demo-tab-content {
+  padding-left: 0;
+  padding-right: 0;
+}
+.demo-close {
+  display: block;
+  position: absolute;
+  top: -35px;
+  right: 0;
+  z-index: 10000;
+  outline: none;
+  font-size: 30px;
+  line-height: 30px;
+  transition: transform .3s ease-in-out;
+  color: #FFF;
+}
+.demo-close:hover {
+  transform: rotate(360deg);
+  color: #FFF;
+}
+.demo-browsers {
+  font-size: 25px;
+  font-weight: 300;
+  margin-bottom: 30px;
+  color: #888;
+}
+.demo-browsers > i {
+  display: inline-block;
+  margin-right: 5px;
+}
+.demo-header-button {
+  display: inline-block;
+  margin-left: 10px;
+}
+.demo-header-button > * {
+  margin-right: 5px;
+}
+.demo-close-btn {
+  display: none;
+}
+.custombox-fullscreen .demo-close-btn {
+  display: block;
+  margin-bottom: 10px;
+}
+.browser-support-content p {
+  text-align: center;
+}
+@media screen and (max-width: 767px) {
+  .demo-modal-multiple-1 {
+    width: 60%;
+  }
+  .demo-modal-multiple-1 > button {
+    margin-bottom: 10px;
+  }
+  .demo-header-button,
+  .banner.auto-size h5 {
+    display: none;
+  }
+  .banner.auto-size {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .banner h1 {
+    font-size: 21px !important;
+    line-height: 21px !important;
+    text-align: center;
+  }
+}          
+        </style>
+</head>
+<body>
+	
+	<div class="container">
+            <div class="row">
+                
+                <!-- Modal -->
+                <div class="modal fade demo-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                      </div>
+                      <div class="modal-body">
+                          <p>lorem impsum</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-demo='{"content":{"effect":"fadein"},"loader":{"active":false}}'>
+                  Launch demo modal
+                </button>                
+            </div>
+            
+            <div class="row">
+                <button type="button" class="btn btn-outline btn-lg btn-primary" data-demo='{"content":{"effect":"fadein"},"loader":{"active":false}}'>Simple</button>
+
+                <div id="demo-modal" class="demo-modal">
+                  <a href="javascript:void(0);" onclick="Custombox.modal.close();" class="demo-close"><i class="fa fa-times"></i></a>
+                  <button type="button" class="btn btn-outline btn-info demo-close-btn" onclick="Custombox.modal.close();">Close</button>
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                </div>
+                <div id="demo-modal-multiple-1" class="demo-modal demo-modal-multiple-1">
+                  <a href="javascript:void(0);" onclick="Custombox.modal.close();" class="demo-close"><i class="fa fa-times"></i></a>
+                  <button type="button" class="btn btn-outline btn-info" id="open-multiple">Open another dialog</button>
+                  <button type="button" class="btn btn-outline btn-info" onclick="Custombox.modal.closeAll();">Close all</button><br><br>
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                </div>
+            </div>
+            
+	</div>	
+
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/custombox@latest/dist/custombox.legacy.min.js"></script>
+        <script src="https://unpkg.com/custombox@latest/dist/custombox.min.js"></script>
+        <script>
+            $(document).on('click', '[data-demo]', function() {
+                var options = $(this).data('demo');
+                if (!options.content.target) {
+                  options.content.target = '#myModal';
+                }
+
+                new Custombox.modal(options).open();
+              });
+        </script>
+</body>
+</html>
