@@ -1,3 +1,24 @@
-.nav_ {
-	margin-bottom: 0px;
+@font-face {
+    font-family: EnterSans;
+    src: url(entsans.ttf);
 }
+body{
+    font-family: Ebrima;
+}
+.navbar-brand{
+    font-family: EnterSans;
+}
+
+.table-responsive table{
+    font-family: Ebrima;
+    font-size: 11px;
+}
+
+th, td{
+    white-space: nowrap;    
+}
+
+table tr td:last-child{
+    width:100%;
+}
+

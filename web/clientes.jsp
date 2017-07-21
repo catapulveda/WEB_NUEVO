@@ -1,3 +1,5 @@
+<jsp:include page="sesion.jsp"></jsp:include>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +13,8 @@
 
     <title>Clientes</title>
 
+    <link href="css/estilos.css" rel="stylesheet">
+    
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
@@ -70,166 +74,12 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html" style="">TRASNFORMADORES CDM</a>
-            </div>
-            <!-- /.navbar-header -->
+        <jsp:include page="sidebar.jsp"></jsp:include>
 
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                    </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="clientes.html"><i class="fa fa-users fa-fw"></i> Clientes</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="flot.html">Flot Charts</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">Morris.js Charts</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-
-        <div id="page-wrapper">
+        <div id="page-wrapper" style="margin-top: 50px;">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Clientes</h1>
+                    <h1 class="page-header" style="margin-top: 10px; margin-bottom: 10px; padding-bottom: 0px;">Clientes</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -237,7 +87,7 @@
             <div class="row">
                 <div id="divMensaje" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="display: none;"></div>
                 <div class="row">                
-                    <div id="divTablaClientes" class="col-md-12">        			
+                    <div id="divtablaClientes" class="col-md-12">        			
                         <div class="table-responsive">
                             <table id="tablaClientes" class="table table-bordered table-striped table-hover">
                                 <thead>
@@ -257,6 +107,7 @@
             
         </div>
         <!-- /#page-wrapper -->
+        
         <!-- Modales -->
         <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel">
             <div class="modal-dialog" role="document">                            
@@ -266,7 +117,7 @@
                         <h4 class="modal-title" id="modalEliminarLabel">Eliminar cliente</h4>
                     </div>
                     <div class="modal-body">
-                        ¿Está seguro de eliminar al cliente?<strong data-name=""></strong>
+                        Â¿EstÃ¡ seguro de eliminar al cliente?<strong data-name=""></strong>
                         <form id="frmEliminarUsuario" action="" method="POST">
                         <input type="hidden" id="idcliente" name="idcliente" value="">
                         <input type="hidden" id="action" name="action" value="eliminar">                        
@@ -291,13 +142,9 @@
                         <form id="formClientes" class="form-horizontal" action="" method="POST">
                             <input type="hidden" id="idcliente" name="idcliente" value="0">
                             <input type="hidden" id="action" name="action" value="registrar">
-                            <div class="form-group has-feedback">
+                            <div class="form-group">
                                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
-                                <div class="col-sm-8">
-                                    <input id="nombre" name="nombre" type="text" class="form-control" aria-describedby="inputError2Status" autofocus>
-                                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                                    <span id="inputError2Status" class="sr-only">(error)</span>
-                                </div>
+                                <div class="col-sm-8"><input id="nombre" name="nombre" type="text" class="form-control" autofocus></div>
                             </div>
                             <div class="form-group">
                                 <label for="nit" class="col-sm-2 control-label">NIT:</label>
@@ -311,7 +158,9 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCancelar">Cancelar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCancelar" onclick="$('#formClientes')[0].reset();">Cancelar</button>
+                        <hr style="margin-top: 15px;margin-bottom: 15px;">
+                        <div class="divError"></div>
                     </div>
                 </div>                 
             </div>
@@ -320,6 +169,9 @@
     </div>
     <!-- /#wrapper -->
 
+    <!-- Script -->
+    <script src="js/script.js"></script>
+        
     <!-- jQuery -->
     <script src="js/jquery-3.2.1.min.js"></script>
 
@@ -358,7 +210,7 @@
             alertify.defaults.theme.input = "form-control";            
         
             var dataTable = $('#tablaClientes').DataTable({
-                dom: 'Bfrtip',
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
                 destroy: true,
                 responsive: true,
                 "order":[[1,'asc']],
@@ -372,9 +224,8 @@
                     {"data":"nombre"},
                     {"data":"acciones"}
                 ],
-                createdRow: function( row, data, dataIndex ) {
-                    $(row).attr('id', 'row-' +data);
-                },
+                dom: '<"row"<"col-xs-12 col-sm-4 col-md-4"l><"col-xs-12 col-sm-4 col-md-4"B><"col-xs-12 col-sm-4 col-md-4"f>>'+
+                     'tr<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>> ',
                 'columnDefs': [
                     {
                         'targets': [0,1],
@@ -383,34 +234,40 @@
                         }
                     }
                 ],
-                lengthMenu: [
-                    [ 10, 25, 50, -1 ],
-                    [ '10 registros', '25 registros', '50 registros', 'Mostrar todo' ]
-                ],
-                buttons: [
-                    'pageLength',                           
+                buttons: [                          
                     {
                         extend:    'copy',
                         text:      '<img src="images/icons/copiar.png" alt="Copiar">',
+                        className: 'btn btn-default btn-sm',
                         titleAttr: 'Copiar todos los registros'
                     },
                     {
                         extend:    'excel',
                         text:      '<img src="images/icons/excel.png" alt="Excel">',
+                        className: 'btn btn-default btn-sm',
                         titleAttr: 'Exportar a excel'
                     },
                     {
                         extend:    'pdf',
                         text:      '<img src="images/icons/pdf.png" alt="Excel">',
+                        className: 'btn btn-default btn-sm',
                         titleAttr: 'Exportar a PDF'
                     },
                     {
-                        "text": "<a href='' data-toggle='modal' data-target='#modalAgregarCliente' aria-controls='tablaClientes' title='Nuevo cliente'><span class='glyphicon glyphicon-plus'></span></a>",
-                        "titleAttr": "Nuevo"
+                        "text": "<span class='glyphicon glyphicon-plus'></span>",
+                        "titleAttr": "Nuevo",
+                        className: 'btn btn-default btn-sm',
+                        "action": function(){
+                            $('#formClientes #action').val('registrar');
+                            $('#modalAgregarCliente .modal-title').text('Registrar cliente');
+                            $('#modalAgregarCliente').modal('show');
+                            $('.divError').empty();
+                        }
                     },
                     {
-                        "text": "<a href='#' title='Recargar tabla' aria-controls='tablaClientes' ><span class='glyphicon glyphicon-refresh'></span></a>",
+                        "text": "<span class='glyphicon glyphicon-refresh'></span>",
                         "titleAttr": "Recargar tabla",
+                        className: 'btn btn-default btn-sm',
                         "action": function(){
                             dataTable.ajax.reload();
                         }
@@ -419,8 +276,12 @@
                 language: {
                     "url":"espanol.txt"
                 }
-            });                   
-
+            });
+            
+            $('#divtablaClientes').addClass('fadeInUpBig animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                $('#divtablaClientes').removeClass('fadeInUpBig animated');
+            });
+            
             $("#formClientes").submit(function(event){
                 event.preventDefault();
                 if($('#nombre').val()===''||$('#nombre').val()===null){
@@ -436,20 +297,45 @@
                     url: "registrarCliente",
                     data: frm
                 }).done(function(data){
-                    var obj = jQuery.parseJSON(data);
-                    //$("#divMensaje").html(obj.html);
-                    //$("#divMensaje").slideDown('slow');                    
-                    alertify.success(obj.mensaje);
-                    $('#formClientes')[0].reset();
-                    $('#modalAgregarCliente').modal('hide');
-                    dataTable.ajax.reload();
+                    var obj = jQuery.parseJSON(data);                                        
+                    if(obj.mensaje.indexOf('ERROR')!==-1){
+                        $('#modalAgregarCliente .modal-footer .divError').html(obj.html);                        
+                        $('#modalAgregarCliente .modal-footer .divError').addClass('tada animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                            $('#modalAgregarCliente .modal-footer .divError').removeClass('tada animated');
+                            //alertify.dialog('alert').set({transition:'flipy', title: obj.mensaje, message: obj.html}).show();
+                        });                        
+                    }else{
+                        //alertify.success(obj.mensaje);
+                        $('#formClientes')[0].reset();
+                        $('#modalAgregarCliente').modal('hide');
+                        dataTable.ajax.reload();
+                        $('#tablaClientes').addClass('fadeInUpBig animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                            $('#tablaClientes').removeClass('fadeInUpBig animated');
+                            //alertify.dialog('alert').set({transition:'flipy', title: obj.mensaje, message: obj.html}).show();
+                        });
+                    }                                    
                 });
-            });                                       
-
+            });
+            
             $(document).on('click', '.actualizar', function(){
                 var idcliente = $(this).attr('id');
                 var row = $(this).parent().parent();
-                $('#modalAgregarCliente').modal('show');
+                $.ajax({
+                    url: "buscarcliente.do",
+                    method: "POST",
+                    data: {"idcliente":idcliente},
+                    success: function(data){
+                        var obj = jQuery.parseJSON(data);
+                        $('#formClientes #action').val('editar');
+                        $('#formClientes #nombre').val(obj.nombreCliente);
+                        $('#formClientes #nit').val(obj.nitCliente);
+                        $('.modal-title').text('Actualizar datos');
+                        $('#modalAgregarCliente').modal('show');
+                    },
+                    error: function(error){
+                        alertify.error('ERROR AL EJECUTAR EL PROCEDIMIENTO AJAX.'); 
+                    }
+                }).done();
             });
             
             $(document).on('click', '.eliminar', function(){
@@ -462,7 +348,7 @@
                             url: "registrarCliente",
                             method: "POST",
                             data: {"action":"eliminar","idcliente":idcliente},
-                            success: function(data){                                        
+                            success: function(data){
                                 var obj = jQuery.parseJSON(data);                                        
                                 if(obj.mensaje.indexOf('ERROR')!==-1){
                                     alertify.dialog('alert').set({transition:'flipy', title: obj.mensaje, message: obj.html}).show();
@@ -484,12 +370,10 @@
                 ).set({transition:'flipy',}
                 );
             });
-
             var valor = null;
             $(document).on('focus', '#tablaClientes tbody tr td', function(){
                 valor = $(this).text();
             });
-
             $(document).on('blur', '#tablaClientes tbody tr td', function(){
                 var newVal = $(this).text();                    
                 var column_name, col = $(this).index();
@@ -521,8 +405,6 @@
                     });
                 }                    
             });
-
-
         });
     </script>
 </body>

@@ -5,47 +5,37 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-public class ServletListarClientes extends HttpServlet {
+
+public class SevletBuscarCliente extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();        
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            String sql = null;
-            String idcliente = request.getParameter("idcliente");
-            if(idcliente!=null){
-                sql = "SELECT * FROM cliente WHERE idcliente="+idcliente;
-            }else{
-                sql = "SELECT * FROM cliente ORDER BY nombrecliente";
-            }
             DataSource source = PoolConexiones.PoolConexiones();
             Connection con = source.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            org.json.simple.JSONArray datos = new org.json.simple.JSONArray();
-            while(rs.next()){
-                org.json.simple.JSONObject obj = new org.json.simple.JSONObject();
-                obj.put("nit", rs.getString("nitcliente"));
-                obj.put("nombre", rs.getString("nombrecliente"));
-//                obj.put("nit", " <div contenteditable class='update' data-id='"+rs.getInt("idcliente")+"' data-column='nitcliente'>"+rs.getString("nitcliente")+"</div> ");                
-//                obj.put("nombre", " <div contenteditable class='update' data-id='"+rs.getInt("idcliente")+"' data-column='nombrecliente'>"+rs.getString("nombrecliente")+"</div> ");
-                obj.put("acciones", "<button type='button' name='actualizar' id='"+rs.getInt("idcliente")+"' class='btn btn-info btn-xs actualizar'title='Actualizar' ><span class='glyphicon glyphicon-edit'></span></button> <button type='button' name='eliminar' id='"+rs.getInt("idcliente")+"' class='btn btn-danger btn-xs eliminar' title='Eliminar'><span class='glyphicon glyphicon-trash'></span></button>");
-                datos.add(obj);
-            }
-            out.print(" {\"data\":"+datos.toJSONString()+"} ");
-        } catch (SQLException ex) {
-            Logger.getLogger(ServletListarClientes.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+            String sql = "SELECT * FROM cliente WHERE idcliente="+request.getParameter("idcliente");
+            ResultSet rs = st.executeQuery(sql);            
+            if(rs.next()){
+                com.google.gson.Gson gson = new com.google.gson.Gson();   
+                    out.print(gson.toJson(new clases.Cliente(
+                        rs.getInt("idcliente"), 
+                        rs.getString("nombrecliente"), 
+                        rs.getString("nitcliente"))
+                    ));
+            }            
+        }catch(Exception e){
+            out.print("<script>");
+            out.print("alertify.error("+e.getMessage()+")");
+            out.print("</script>");
+        }finally {
             out.close();
         }
     }

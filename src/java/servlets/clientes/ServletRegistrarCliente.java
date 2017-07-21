@@ -49,7 +49,11 @@ public class ServletRegistrarCliente extends HttpServlet {
                 json += ",";
                 json += " \"html\":\"<div class='alert alert-success'><button class='close' data-dismiss='alert'><span>&times;</span></button><span class='glyphicon glyphicon-ok'></span> Cliente eliminado</div>\" ";
             }else if(accion.equals("editar")){
-                sql = "UPDATE cliente SET "+request.getParameter("column_name")+"='"+request.getParameter("text")+"' WHERE idcliente="+request.getParameter("idcliente");
+                if(null==request.getParameter("opcion")){
+                    sql = "UPDATE cliente SET "+request.getParameter("column_name")+"='"+request.getParameter("text")+"' WHERE idcliente="+request.getParameter("idcliente");
+                }else{
+                    sql = "UPDATE cliente SET nombrecliente='"+request.getParameter("nombre")+"' , nitcliente='"+request.getParameter("nit")+"' WHERE idcliente="+request.getParameter("idcliente")+" ";
+                }                
                 //mensaje = "<div class=\"alert alert-success\"><button class=\"close\" data-dismiss=\"alert\"><span>&times;</span></button><span class='glyphicon glyphicon-ok'></span> Datos actualizados!</div>";
 //                obj.put("mensaje","El cliente ha sido actualizado!");
 //                obj.put("html", "<div class=\"alert alert-success\"><button class=\"close\" data-dismiss=\"alert\"><span>&times;</span></button><span class='glyphicon glyphicon-ok'></span> Datos actualizados!</div>");
@@ -57,8 +61,8 @@ public class ServletRegistrarCliente extends HttpServlet {
                 json += ",";
                 json += " \"html\":\"<div class='alert alert-success'><button class='close' data-dismiss='alert'><span>&times;</span></button><span class='glyphicon glyphicon-ok'></span> Datos actualizados!</div>\" ";
             }
-            
-            if(st.executeUpdate(sql)<=0){
+            int n = st.executeUpdate(sql);
+            if(n<=0){
 //                obj.put("mensaje", "ERROR AL EJECUTAR LA CONSULTA");                
 //                obj.put("html", "<div class=\"alert alert-danger\"><button class=\"close\" data-dismiss=\"alert\"><span>&times;</span></button><span class='glyphicon glyphicon-remove'></span> Advertencia: NO SE EJECUTO LA CONSULTA.</div>");
                 json = "{ \"mensaje\":\"<em>ERROR AL EJECUTAR LA CONSULTA</em>\" ";
@@ -72,7 +76,7 @@ public class ServletRegistrarCliente extends HttpServlet {
 //            obj.put("mensaje", "ERROR AL EJECUTAR LA CONSULTA");
             json = "{ \"mensaje\":\"<em>ERROR AL EJECUTAR LA CONSULTA</em>\" ";
             json += ",";
-            json += " \"html\":\"<div class='alert alert-danger'><span class='glyphicon glyphicon-remove'></span> "+ex.getMessage().replace("\n", "")+"</div>\" ";
+            json += " \"html\":\"<div class='alert alert-danger'><span class='glyphicon glyphicon-remove'></span> "+ex.getMessage().replace("\n", "").concat(". "+sql)+"</div>\" ";
         } finally {
             datos.add(obj);
             json += "}";

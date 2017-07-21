@@ -1,6 +1,7 @@
-package servlets.clientes;
+package servlets.login;
 
 import clases.PoolConexiones;
+import clases.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -15,36 +16,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-public class ServletListarClientes extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();        
+public class ServletLogin extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        String correo = request.getParameter("email");
+        String pass = request.getParameter("password");
+        String sql = "SELECT * FROM usuario WHERE correo='"+correo+"' AND pass=md5('"+pass+"' || '"+correo+"' || 'cdmtransformadores') ";
+        DataSource source = PoolConexiones.PoolConexiones();
+        Connection con;
         try {
-            String sql = null;
-            String idcliente = request.getParameter("idcliente");
-            if(idcliente!=null){
-                sql = "SELECT * FROM cliente WHERE idcliente="+idcliente;
-            }else{
-                sql = "SELECT * FROM cliente ORDER BY nombrecliente";
-            }
-            DataSource source = PoolConexiones.PoolConexiones();
-            Connection con = source.getConnection();
+            con = source.getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            org.json.simple.JSONArray datos = new org.json.simple.JSONArray();
-            while(rs.next()){
-                org.json.simple.JSONObject obj = new org.json.simple.JSONObject();
-                obj.put("nit", rs.getString("nitcliente"));
-                obj.put("nombre", rs.getString("nombrecliente"));
-//                obj.put("nit", " <div contenteditable class='update' data-id='"+rs.getInt("idcliente")+"' data-column='nitcliente'>"+rs.getString("nitcliente")+"</div> ");                
-//                obj.put("nombre", " <div contenteditable class='update' data-id='"+rs.getInt("idcliente")+"' data-column='nombrecliente'>"+rs.getString("nombrecliente")+"</div> ");
-                obj.put("acciones", "<button type='button' name='actualizar' id='"+rs.getInt("idcliente")+"' class='btn btn-info btn-xs actualizar'title='Actualizar' ><span class='glyphicon glyphicon-edit'></span></button> <button type='button' name='eliminar' id='"+rs.getInt("idcliente")+"' class='btn btn-danger btn-xs eliminar' title='Eliminar'><span class='glyphicon glyphicon-trash'></span></button>");
-                datos.add(obj);
+            if(rs.next()){
+                Usuario usuario = new Usuario(rs.getInt("idusuario"), rs.getString("nombreusuario"), rs.getString("correo"), rs.getString("pass"));
+                HttpSession sesion = request.getSession(true);                
+                sesion.setAttribute("usuario", usuario);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }else{
+                request.setAttribute("errorSesion", "Los datos de usuario no existen.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-            out.print(" {\"data\":"+datos.toJSONString()+"} ");
         } catch (SQLException ex) {
-            Logger.getLogger(ServletListarClientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);        
         } finally {
             out.close();
         }
