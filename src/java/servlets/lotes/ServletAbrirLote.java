@@ -22,9 +22,11 @@ public class ServletAbrirLote extends HttpServlet {
         PrintWriter out = response.getWriter();
         DataSource source = PoolConexiones.PoolConexiones();
         Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
         try {            
             con = source.getConnection();
-            Statement st = con.createStatement();
+            st = con.createStatement();
             String sql = " SELECT e.*, t.*, r.numero_remision FROM entrada e ";
             sql += " INNER JOIN transformador t ON t.identrada=e.identrada  ";
             sql += " LEFT JOIN remision r ON t.idremision=r.idremision ";
@@ -32,7 +34,7 @@ public class ServletAbrirLote extends HttpServlet {
             sql += " INNER JOIN conductor co ON co.idconductor=e.idconductor  ";
             sql += " WHERE e.identrada="+request.getParameter("idlote")+" ";
             sql += " "+((Boolean.parseBoolean(request.getParameter("order")))?"ORDER BY fase ASC, kvaentrada ASC, marca":"ORDER BY item" )+" ";
-            ResultSet rs = st.executeQuery(sql);
+            rs = st.executeQuery(sql);
             org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();
             org.json.simple.JSONObject jsonObject = null;
             while(rs.next()){
@@ -74,6 +76,7 @@ public class ServletAbrirLote extends HttpServlet {
             out.print("alertify.error("+ex.getMessage()+")");
             out.print("</script>");
         } finally {
+            try {if(con!=null)con.close();if(st!=null)st.close();if(rs!=null)rs.close();} catch (SQLException ex) {Logger.getLogger(ServletAbrirLote.class.getName()).log(Level.SEVERE, null, ex);}
             out.close();
         }
     }

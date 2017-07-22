@@ -23,13 +23,14 @@ public class ServletRegistrarCliente extends HttpServlet {
         PrintWriter out = response.getWriter();
         DataSource source = PoolConexiones.PoolConexiones();
         Connection con = null;
+        Statement st = null;
         String sql = null;
         org.json.simple.JSONArray datos = new org.json.simple.JSONArray();
         org.json.simple.JSONObject obj = new org.json.simple.JSONObject();
         String json = "{";
         try {            
             con = source.getConnection();
-            Statement st = con.createStatement();                       
+            st = con.createStatement();                       
             String accion = request.getParameter("action");
             String mensaje = "NULL";           
             if(accion.equals("registrar")){
@@ -87,6 +88,7 @@ public class ServletRegistrarCliente extends HttpServlet {
             }catch(SQLException ex){
                 Logger.getLogger(ServletRegistrarCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
+            try {if(con!=null)con.close();if(st!=null)st.close();} catch (SQLException ex) {Logger.getLogger(ServletRegistrarCliente.class.getName()).log(Level.SEVERE, null, ex);}
         }
     }
 

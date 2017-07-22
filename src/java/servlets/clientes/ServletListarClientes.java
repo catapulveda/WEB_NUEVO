@@ -19,7 +19,10 @@ public class ServletListarClientes extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();        
+        PrintWriter out = response.getWriter();  
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
         try {
             String sql = null;
             String idcliente = request.getParameter("idcliente");
@@ -29,9 +32,9 @@ public class ServletListarClientes extends HttpServlet {
                 sql = "SELECT * FROM cliente ORDER BY nombrecliente";
             }
             DataSource source = PoolConexiones.PoolConexiones();
-            Connection con = source.getConnection();
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            con = source.getConnection();
+            st = con.createStatement();
+            rs = st.executeQuery(sql);
             org.json.simple.JSONArray datos = new org.json.simple.JSONArray();
             while(rs.next()){
                 org.json.simple.JSONObject obj = new org.json.simple.JSONObject();
@@ -46,6 +49,7 @@ public class ServletListarClientes extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ServletListarClientes.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {if(con!=null)con.close();if(st!=null)st.close();if(rs!=null)rs.close();} catch (SQLException ex) {Logger.getLogger(ServletListarClientes.class.getName()).log(Level.SEVERE, null, ex);}
             out.close();
         }
     }

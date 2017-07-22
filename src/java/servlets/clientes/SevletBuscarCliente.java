@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +20,15 @@ public class SevletBuscarCliente extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
-            DataSource source = PoolConexiones.PoolConexiones();
-            Connection con = source.getConnection();
-            Statement st = con.createStatement();
+        DataSource source = PoolConexiones.PoolConexiones();
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+        try {            
+            con = source.getConnection();            
+            st = con.createStatement();
             String sql = "SELECT * FROM cliente WHERE idcliente="+request.getParameter("idcliente");
-            ResultSet rs = st.executeQuery(sql);            
+            rs = st.executeQuery(sql);            
             if(rs.next()){
                 com.google.gson.Gson gson = new com.google.gson.Gson();   
                     out.print(gson.toJson(new clases.Cliente(
@@ -36,6 +42,7 @@ public class SevletBuscarCliente extends HttpServlet {
             out.print("alertify.error("+e.getMessage()+")");
             out.print("</script>");
         }finally {
+            try {if(con!=null)con.close();if(st!=null)st.close();if(rs!=null)rs.close();} catch (SQLException ex) {Logger.getLogger(SevletBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);}
             out.close();
         }
     }

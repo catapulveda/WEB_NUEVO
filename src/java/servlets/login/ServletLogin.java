@@ -23,15 +23,18 @@ public class ServletLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String correo = request.getParameter("email");
+        String correo = request.getParameter("email").toUpperCase();
         String pass = request.getParameter("password");
         String sql = "SELECT * FROM usuario WHERE correo='"+correo+"' AND pass=md5('"+pass+"' || '"+correo+"' || 'cdmtransformadores') ";
         DataSource source = PoolConexiones.PoolConexiones();
-        Connection con;
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
         try {
             con = source.getConnection();
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            st = con.createStatement();
+            rs = st.executeQuery(sql);            
+            
             if(rs.next()){
                 Usuario usuario = new Usuario(rs.getInt("idusuario"), rs.getString("nombreusuario"), rs.getString("correo"), rs.getString("pass"));
                 HttpSession sesion = request.getSession(true);                
@@ -42,8 +45,11 @@ public class ServletLogin extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);        
+            request.setAttribute("errorSesion", "Los datos de usuario no existen. "+ex);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            //Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);        
         } finally {
+            try {if(con!=null)con.close();if(st!=null)st.close();if(rs!=null)rs.close();} catch (SQLException ex) {Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);}
             out.close();
         }
     }

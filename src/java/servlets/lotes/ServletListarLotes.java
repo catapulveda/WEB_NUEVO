@@ -40,11 +40,13 @@ public class ServletListarLotes extends HttpServlet {
         PrintWriter out = response.getWriter();
         DataSource source = PoolConexiones.PoolConexiones();
         Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
         try {
             con = source.getConnection();
-            Statement st = con.createStatement();
+            st = con.createStatement();
             String sql = "SELECT e.identrada, e.idcliente, e.idciudad, e.idconductor, e.identradaAlmacen, e.lote, e.contrato, e.op, e.centrodecostos, e.fecharecepcion, e.fecharegistrado, e.fechaactualizado, e.fechaliberado, e.estado, e.observacion, ciu.nombreciudad, ciu.direccionciudad, ciu.telefonociudad, cli.nombrecliente, cli.nitcliente, con.cedulaconductor, con.nombreconductor, usu.nombreusuario FROM entrada e   INNER JOIN ciudad ciu ON (e.idciudad = ciu.idciudad)INNER JOIN cliente cli ON (e.idcliente = cli.idcliente) INNER JOIN conductor con ON (e.idconductor = con.idconductor) INNER JOIN usuario usu ON (e.idusuario = usu.idusuario) WHERE e.idcliente>-1  ORDER BY nombrecliente ASC, fecharecepcion ASC";
-            ResultSet rs = st.executeQuery(sql);
+            rs = st.executeQuery(sql);
             org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();
             org.json.simple.JSONObject jsonObject = null;
             while(rs.next()){
@@ -75,11 +77,8 @@ public class ServletListarLotes extends HttpServlet {
             out.print("alertify.error("+ex.getMessage()+")");
             out.print("</script>");
         } finally {            
-            try {
-                con.close();
-            }catch(SQLException ex){
-                Logger.getLogger(ServletRegistrarCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            try {if(con!=null)con.close();if(st!=null)st.close();if(rs!=null)rs.close();} catch (SQLException ex) {Logger.getLogger(ServletListarLotes.class.getName()).log(Level.SEVERE, null, ex);}
+            out.close();
         }
     }
     

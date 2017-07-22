@@ -51,18 +51,20 @@
                     <div class="col-md-6 col-md-offset-3">
                         <div class="panel panel-login" style="margin-top: 25%;">
                             <div class="panel-heading">
-                                <%
-                                    if(request.getParameter("salir")==null){
-                                        if(request.getAttribute("errorSesion")!=null){
-                                            out.print("<div class='alert alert-danger'>"+request.getAttribute("errorSesion")+"</div>");
-                                        }else{ 
-                                            request.getRequestDispatcher("index.jsp").forward(request, response);
-                                        }
-                                    }else{
-                                        HttpSession sesion = request.getSession(false);
+                                <%        
+                                    HttpSession sesion = request.getSession(false);
+                                    if(Boolean.parseBoolean(request.getParameter("salir"))){
                                         sesion.removeAttribute("usuario");
                                         sesion.invalidate();
-                                    }
+                                    }else{
+                                        if(sesion.getAttribute("usuario")!=null){
+                                            request.getRequestDispatcher("index.jsp").forward(request, response);                                        
+                                        }else{
+                                            if(request.getAttribute("errorSesion")!=null){
+                                                out.print("<div class='alert alert-danger'>"+request.getAttribute("errorSesion")+"</div>");
+                                            }
+                                        }
+                                    }                                    
                                 %>
                                 <div class="row">
                                     <div class="col-xs-6">
@@ -105,7 +107,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <form id="register-form" action="https://phpoll.com/register/process" method="post" role="form" style="display: none;">
+                                        <form id="register-form" action="register" method="post" role="form" style="display: none;">
                                             <div class="form-group">
                                                 <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuario" value="">
                                             </div>
