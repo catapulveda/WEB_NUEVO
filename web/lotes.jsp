@@ -1,4 +1,3 @@
-<jsp:include page="sesion.jsp"></jsp:include>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,9 +66,9 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <jsp:include page="sidebar.jsp"></jsp:include>
+        <jsp:include page="sidebar2.jsp"></jsp:include>
 
-        <div id="page-wrapper" style="margin-top: 50px;">
+        <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header" style="margin-top: 10px; margin-bottom: 10px; padding-bottom: 0px;">Lotes Registrados</h1>
@@ -369,7 +368,7 @@
                 select:{
                     style: 'os',
                     items: 'row'
-                },                
+                }
             });
             $('#divTablaDatosLote').slideDown('slow');
         }

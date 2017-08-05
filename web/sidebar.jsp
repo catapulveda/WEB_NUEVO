@@ -1,4 +1,3 @@
-<%@page session="true" %>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -81,10 +80,10 @@
                 <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> <%=((clases.Usuario)request.getSession().getAttribute("usuario")).getNombre() %></a>
+                <li><a href="#"><i class="fa fa-user fa-fw"></i> </a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="login.jsp?salir=true"><i class="fa fa-sign-out fa-fw"></i>Salir</a>
+                <li><a href="login?action=logout"><i class="fa fa-sign-out fa-fw"></i>Salir</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
@@ -115,51 +114,47 @@
                     </a>
                 </li>
                 <li>
-                    <a href="control.jsp">
+                    <a href="#">
                         Control
                         <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-sitemap"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span>
+                    <a href="estadistica.jsp">
+                        Estadistica
+                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-bar-chart-o fa-fw"></span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="flot.html">Flot Charts</a>
-                        </li>
-                        <li>
-                            <a href="morris.html">Morris.js Charts</a>
+                            <a href="estadistica.jsp">Flot Charts</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="panels-wells.html">Panels and Wells</a>
-                        </li>
-                        <li>
-                            <a href="buttons.html">Buttons</a>
-                        </li>
-                        <li>
-                            <a href="notifications.html">Notifications</a>
-                        </li>
-                        <li>
-                            <a href="typography.html">Typography</a>
-                        </li>
-                        <li>
-                            <a href="icons.html"> Icons</a>
-                        </li>
-                        <li>
-                            <a href="grid.html">Grid</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Panels and Wells</a>
+                                </li>
+                                <li>
+                                    <a href="buttons.html">Buttons</a>
+                                </li>
+                                <li>
+                                    <a href="notifications.html">Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="typography.html">Typography</a>
+                                </li>
+                                <li>
+                                    <a href="icons.html"> Icons</a>
+                                </li>
+                                <li>
+                                    <a href="grid.html">Grid</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>                    
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

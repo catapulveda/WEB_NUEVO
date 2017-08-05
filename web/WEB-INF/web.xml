@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!--
+    <filter>
+        <filter-name>NewFilter</filter-name>
+        <filter-class>filter.NewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>NewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>NewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    -->
     <servlet>
         <servlet-name>ServletListarClientes</servlet-name>
         <servlet-class>servlets.clientes.ServletListarJSONClientes</servlet-class>
@@ -32,6 +46,14 @@
         <servlet-name>ServletRegister</servlet-name>
         <servlet-class>servlets.login.ServletRegister</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletGraficaCantidad</servlet-name>
+        <servlet-class>servlets.graficas.ServletGraficaCantidad</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>servlets.graficas.NewServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletListarClientes</servlet-name>
         <url-pattern>/listarclientes</url-pattern>
@@ -63,6 +85,14 @@
     <servlet-mapping>
         <servlet-name>ServletRegister</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletGraficaCantidad</servlet-name>
+        <url-pattern>/chartcount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

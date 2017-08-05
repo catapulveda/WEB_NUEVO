@@ -34,8 +34,8 @@
 	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
 	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
 }
-.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
-	height: 45px;
+.panel-login input[type="text"], .panel-login input[type="email"], .panel-login input[type="password"] {
+	/*height: 45px; SE LE QUITO LA ALTURA PORQUE NO ENCAJABA CON LOS ICONOS DE LOS BOTONES LATERALES */
 	border: 1px solid #ddd;
 	font-size: 16px;
 	-webkit-transition: all 0.1s linear;

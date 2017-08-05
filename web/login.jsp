@@ -51,21 +51,7 @@
                     <div class="col-md-6 col-md-offset-3">
                         <div class="panel panel-login" style="margin-top: 25%;">
                             <div class="panel-heading">
-                                <%        
-                                    HttpSession sesion = request.getSession(false);
-                                    if(Boolean.parseBoolean(request.getParameter("salir"))){
-                                        sesion.removeAttribute("usuario");
-                                        sesion.invalidate();
-                                    }else{
-                                        if(sesion.getAttribute("usuario")!=null){
-                                            request.getRequestDispatcher("index.jsp").forward(request, response);                                        
-                                        }else{
-                                            if(request.getAttribute("errorSesion")!=null){
-                                                out.print("<div class='alert alert-danger'>"+request.getAttribute("errorSesion")+"</div>");
-                                            }
-                                        }
-                                    }                                    
-                                %>
+                                ${errorSesion}
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <a href="#" class="active" id="login-form-link">Iniciar sesion</a>
@@ -79,17 +65,24 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <form id="login-form" action="login" method="post" role="form" style="display: block;">
+
+                                        <form id="login-form" action="login?action=login" method="post" role="form" style="display: block;">
                                             <div class="form-group">
-                                                <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="Correo electronico" value="">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                                                    <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="Correo electronico">
+                                                </div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                                                    <input type="password" name="password" id="passwordlogin" tabindex="2" class="form-control" placeholder="Contraseña">
+                                                </div>
                                             </div>
                                             <div class="form-group text-center">
                                                 <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                                                 <label for="remember">Recordarme</label>
-                                            </div>
+                                            </div>                                            
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-6 col-sm-offset-3">
@@ -107,29 +100,50 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <form id="register-form" action="register" method="post" role="form" style="display: none;">
+
+                                        <form id="register-form" action="login?action=register" method="post" data-toggle="validator" role="form" style="display: none;">
                                             <div class="form-group">
-                                                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuario" value="">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuario" data-error="Ingrese su nombre" required>
+                                                </div>
+                                                <div class="help-block with-errors"></div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo electronico" value="">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i></span>
+                                                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo electronico" data-error="Ingrese un correo electronico" required>
+                                                </div>
+                                                <div class="help-block with-errors"></div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                                                    <input type="password" name="password" id="password" data-minlength="6" tabindex="2" class="form-control" placeholder="Contraseña">
+                                                </div>
+                                                <div class="help-block">Minimo 6 caracteres para la contraseña</div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirmar contraseña">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                                                    <input type="password" name="confirm-password" id="confirm-password" data-match="#password" data-match-error="Las contraseñas no coinciden." tabindex="2" class="form-control" placeholder="Confirmar contraseña" required>
+                                                </div>
+                                                <div class="help-block with-errors"></div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-6 col-sm-offset-3">
-                                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-success" value="Registrarme">
+                                                            <input type="submit" name="btnRegistrar" id="btnRegistrar" tabindex="4" class="form-control btn btn-success" value="Registrarme">
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
+
                                     </div>
                                 </div>
+                            </div>
+                            <div class="panel-footer">
+                                
                             </div>
                         </div>
                     </div>
@@ -141,6 +155,7 @@
 
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/validator.js"></script>
         
         <script>
              $('#login-form-link').click(function(e) {

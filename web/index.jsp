@@ -1,4 +1,3 @@
-<jsp:include page="sesion.jsp"></jsp:include>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Bienvenido ${usuario.toString()}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -19,12 +18,15 @@
 
     <!-- MetisMenu CSS -->
     <link href="css/sb-admin-2/metisMenu.min.css" rel="stylesheet">
-
+    
     <!-- Timeline CSS -->
-    <link href="css/sb-admin-2/timeline.css" rel="stylesheet">
+    <link href="css/sb-admin-2/timeline.css" rel="stylesheet">    
 
     <!-- Custom CSS -->
     <link href="css/sb-admin-2/sb-admin-2.css" rel="stylesheet">
+    
+    <!-- Morris Charts CSS -->
+    <link href="css/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -43,9 +45,9 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <jsp:include page="sidebar.jsp"></jsp:include>
+        <jsp:include page="sidebar2.jsp"></jsp:include>
 
-        <div id="page-wrapper" class="fondobg" style="margin-top: 51px;">
+        <div id="page-wrapper" class="fondobg">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Dashboard</h1>
@@ -73,25 +75,17 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="js/sb-admin-2/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="../bower_components/raphael/raphael-min.js"></script>
-    <script src="../bower_components/morrisjs/morris.min.js"></script>
-    <script src="../js/morris-data.js"></script>
-
+    
+    
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2/sb-admin-2.js"></script>
+    <script src="js/sb-admin-2/metisMenu.min.js"></script>
     
-    <script>
-        $(document).ready(function(){
-            $('.sidebar').hover(function() {
-                $('.fondobg').css('margin-left', '150');
-            }, function() {
-                $('.fondobg').css('margin-left', '40');
-            });
-        });        
+    <script src="js/charts/morris.min.js"></script>
+    <script src="js/charts/raphael-min.js"></script>
+    
+    
+    <script>     
     </script>
 </body>
 

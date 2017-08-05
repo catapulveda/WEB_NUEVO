@@ -25,8 +25,6 @@ public class ServletRegistrarCliente extends HttpServlet {
         Connection con = null;
         Statement st = null;
         String sql = null;
-        org.json.simple.JSONArray datos = new org.json.simple.JSONArray();
-        org.json.simple.JSONObject obj = new org.json.simple.JSONObject();
         String json = "{";
         try {            
             con = source.getConnection();
@@ -79,7 +77,6 @@ public class ServletRegistrarCliente extends HttpServlet {
             json += ",";
             json += " \"html\":\"<div class='alert alert-danger'><span class='glyphicon glyphicon-remove'></span> "+ex.getMessage().replace("\n", "").concat(". "+sql)+"</div>\" ";
         } finally {
-            datos.add(obj);
             json += "}";
             out.print(json);
             out.close();

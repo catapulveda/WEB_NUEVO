@@ -1,8 +1,13 @@
-/*!
- * Start Bootstrap - SB Admin 2 Bootstrap Admin Theme (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29/07/2017, 07:33:51 AM
+    Author     : AUXPLANTA
+color: #df8a13;
+*/
 
 body {
     background-color: #f8f8f8;
@@ -13,7 +18,7 @@ body {
 }
 
 #page-wrapper {
-    padding: 0 15px;
+    padding: 15px 15px;
     min-height: 568px;
     background-color: #fff;
 }
@@ -21,9 +26,8 @@ body {
 @media(min-width:768px) {
     #page-wrapper {
         position: inherit;
-        /*LE QUITO MARGEN IZQUIERDO PARA DEJARLO CERCA A LA BARRA LATERAL. 250 POR 40*/
-        margin: 0 0 0 40px;
-        padding: 0 30px;
+        margin: 0 0 0 250px;
+        padding: 15px 15px;
         border-left: 1px solid #e7e7e7;
     }
 }
@@ -128,26 +132,12 @@ body {
     padding-left: 52px;
 }
 
-.sidebar{
-    -webkit-transition: margin 200ms ease-out;
-    -moz-transition: margin 200ms ease-out;
-    -o-transition: margin 200ms ease-out;
-    transition: margin 200ms ease-out;
-}
-
 @media(min-width:768px) {
-    
-    .sidebar:hover{
-        margin-left: 0px;
-    }     
-    
     .sidebar {
         z-index: 1;
         position: absolute;
-        /*LE QUITO EL ANCHO DE 250 POR 50 PARA QUE SOLO SE VEAN LOS ICONOS*/
-        width: 150px;
+        width: 250px;
         margin-top: 51px;
-        margin-left: -110px;
     }
 
     .navbar-top-links .dropdown-messages,
@@ -364,6 +354,6 @@ table.dataTable thead .sorting:after {
     color: #f0ad4e;
 }
 
-.panel-yellow a:hover {
-    color: #df8a13;
+.panel-yellow{
+    color: #DF8A13;
 }

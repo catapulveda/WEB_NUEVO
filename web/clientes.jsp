@@ -1,4 +1,3 @@
-<jsp:include page="sesion.jsp"></jsp:include>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,9 +73,9 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <jsp:include page="sidebar.jsp"></jsp:include>
+        <jsp:include page="sidebar2.jsp"></jsp:include>
 
-        <div id="page-wrapper" style="margin-top: 50px;">
+        <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header" style="margin-top: 10px; margin-bottom: 10px; padding-bottom: 0px;">Clientes</h1>
@@ -177,9 +176,6 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="js/sb-admin-2/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2/sb-admin-2.js"></script>
