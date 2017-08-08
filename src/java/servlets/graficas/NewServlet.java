@@ -26,13 +26,16 @@ import org.json.JSONObject;
  */
 public class NewServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String sql = "";
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
         try {
-            String from = new SimpleDateFormat("dd/MM/yyyy").format("01/01/2017");
-            String to = new SimpleDateFormat("dd/MM/yyyy").format("01/08/2017");
-            String where = ( true)?" WHERE fechalaboratorio BETWEEN ''01-01-2017'' AND ''01-08-2017''  ":"";
+            java.util.Date from = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("from").replace("/", "-"));
+            java.util.Date to = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("to").replace("/", "-"));
+            String where = (!from.toString().isEmpty()&&!to.toString().isEmpty())?" WHERE fechalaboratorio BETWEEN ''"+from+"'' AND ''"+to+"''  ":"";
             sql = " SELECT * FROM crosstab(\n" +
             " 'SELECT extract(year from fechalaboratorio) AS ano, extract(month from fechalaboratorio) AS mes, count(*) \n" +
             " FROM protocolos  INNER JOIN transformador t USING(idtransformador) INNER JOIN entrada e USING(identrada)\n" +
@@ -40,9 +43,7 @@ public class NewServlet extends HttpServlet {
             " GROUP BY extract(year from fechalaboratorio), extract(month from fechalaboratorio)\n" +
             " ORDER BY 1, 2') \n" +
             "AS ct(ano double precision, enero bigint, febrero bigint, marzo bigint, abril bigint, mayo bigint, junio bigint, julio bigint, agosto bigint, septiembre bigint, octubre bigint, noviembre bigint, diciembre bigint);";
-            Connection con = null;
-            Statement st = null;
-            ResultSet rs = null;
+            
             DataSource source = PoolConexiones.PoolConexiones();
             con = source.getConnection();
             st = con.createStatement();
@@ -53,33 +54,39 @@ public class NewServlet extends HttpServlet {
             JSONObject json = new JSONObject();            
             JSONArray array = new JSONArray();
             try{
-                while(rs.next()){                    
+                while(rs.next()){
                     
                     JSONObject json1 = new JSONObject();
                     
                     json1.put("name", rs.getString("ano"));
                     
-                    int columnas = rsmd.getColumnCount()-1;
                     json1.put("data", new int[]{
                         rs.getInt(2),rs.getInt(3),rs.getInt(4),
-                        rs.getInt(5),rs.getInt(5),rs.getInt(6),
-                        rs.getInt(7),rs.getInt(8),rs.getInt(9),
-                        rs.getInt(10),rs.getInt(11),rs.getInt(12)
+                        rs.getInt(5),rs.getInt(6),rs.getInt(7),
+                        rs.getInt(8),rs.getInt(9),rs.getInt(10),
+                        rs.getInt(11),rs.getInt(12),rs.getInt(13)
                     });
                     array.put(json1);
                 }                                
-                json.put("series", array);
+                json.put("cantidad", array);
             }catch(JSONException ex){
                 Logger.getLogger(NewServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            }
             
 //            Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
             out.println(json.toString());
         } catch (Exception ex) {
             Logger.getLogger(ServletGraficaCantidad.class.getName()).log(Level.SEVERE, null, ex);
-            out.print("<div clas='alert alert-danger>Error "+ex+"</div>");
+            out.print(ex);
+            out.print("<html><script>alert('"+ex+"');</script></html>");
         } finally {
-            out.println(sql);
+            try {
+                con.close();
+                rs.close();
+                st.close();                
+            } catch (SQLException ex) {
+                Logger.getLogger(NewServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             out.close();
         }
     }

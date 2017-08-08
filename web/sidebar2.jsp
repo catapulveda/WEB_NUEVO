@@ -125,8 +125,8 @@
                 <li>
                     <a href="estadistica.jsp">
                         Estadistica
-                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-bar-chart-o fa-fw"></span>
-                    </a>                    
+                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-line-chart"></span>
+                    </a>
                 </li>
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
