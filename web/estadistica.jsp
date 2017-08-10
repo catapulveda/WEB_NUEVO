@@ -119,26 +119,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Cantidad de transformadores intervenidos
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Total KVA Producios                            
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -186,8 +167,7 @@
     <!-- datetimepicker -->
     <script type="text/javascript" src="js/jquery-ui.js" charset="UTF-8"></script>    
     
-    <script>                
-        
+    <script>                        
         $(document).ready(function(){
             
             var dateFormat = "mm/dd/yy",
@@ -230,7 +210,6 @@
                     fallbackToExportServer: false
                 },
                 chart: {
-                    renderTo: 'chartKVA',
                     type: 'column'
                 },
                 xAxis: {
@@ -238,6 +217,9 @@
                         'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
                     ],
                     crosshair: true
+                },
+                title: {
+                    text: 'tittle'
                 },
                 yAxis: {
                     min: 0,
@@ -266,11 +248,27 @@
                     }
                 },
                 series: [{}]
-            };                                    
+            };
+            
+            
+            var url =  "http://localhost:8080/WEB/NewServlet?from=01/01/2016&to=08/08/2017";            
+            $.getJSON(url,  function(data) {
+                options.chart.renderTo = 'chartCount';
+                options.series = data.cantidad;
+                options.title.text = 'Total Intervenidos';
+                var chartCount = new Highcharts.Chart(options);
+                
+                var opciones = options;
+                opciones.chart.renderTo = 'chartKVA';
+                opciones.series = data.totalkva;
+                opciones.title.text = 'Total KVA Producidos';
+                var chartKVA = new Highcharts.Chart(opciones);
+            });
+                                          
         });
         
         function cargar(){
-            var url =  "NewServlet?from="+$("#from").val()+"&to="+$("#to").val();            
+            var url =  "http://localhost:8080/WEB/NewServlet?from=01/02/2017&to=04/02/2017";            
             $.getJSON(url,  function(data) {                
                 options.series[0] = data.series;                
                 var chart = new Highcharts.Chart(options);
@@ -285,19 +283,9 @@
                     alert(errorThrown);
                 },
                 success : function(data) {
-                    Highcharts.chart(grafica, {
+                    Highcharts.chart('chartKVA', {                                                                                                                        
                         
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'tittle'
-                        },
-                        subtitle: {
-                            text: ''
-                        },
-                        
-                        series: datos
+                        series: [{}]
                     });
                 }
             });

@@ -98,45 +98,36 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li>
-                    <a href="clientes.jsp">
-                        Clientes
-                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-users fa-fw"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="lotes.jsp">
-                        Lotes
-                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-list"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Remisiones
-                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-list-alt"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Control
-                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-sitemap"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="estadistica.jsp">
-                        Estadistica
-                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-line-chart"></span>
-                    </a>
-                </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Panels and Wells</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="clientes.jsp">
+                                Clientes
+                                <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-users fa-fw"></span>
+                            </a>
                         </li>
+                        <li>
+                            <a href="lotes.jsp">
+                                Lotes
+                                <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-list"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Remisiones
+                                <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-list-alt"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Control
+                                <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-sitemap"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="estadistica.jsp">
+                                Estadistica
+                                <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-line-chart"></span>
+                            </a>
+                        </li>                        
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -151,18 +142,6 @@
                                         </li>
                                     </ul>
                                     <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="#">Login Page</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

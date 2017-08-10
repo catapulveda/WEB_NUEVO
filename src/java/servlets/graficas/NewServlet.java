@@ -47,9 +47,7 @@ public class NewServlet extends HttpServlet {
             DataSource source = PoolConexiones.PoolConexiones();
             con = source.getConnection();
             st = con.createStatement();
-            rs = st.executeQuery(sql);
-                                    
-            ResultSetMetaData rsmd = rs.getMetaData();                                                            
+            rs = st.executeQuery(sql);                                   
             
             JSONObject json = new JSONObject();            
             JSONArray array = new JSONArray();
@@ -67,9 +65,61 @@ public class NewServlet extends HttpServlet {
                         rs.getInt(11),rs.getInt(12),rs.getInt(13)
                     });
                     array.put(json1);
-                }                                
+                }
                 json.put("cantidad", array);
-            }catch(JSONException ex){
+                
+                sql = "SELECT * FROM crosstab(\n" +
+                " 'SELECT extract(year from fechalaboratorio) AS ano,  extract(month from fechalaboratorio) AS mes,\n" +
+                "sum(t.kvasalida) FROM protocolos p INNER JOIN transformador t USING(idtransformador)\n" +
+                "INNER JOIN entrada e USING(identrada)\n" +
+                "INNER JOIN cliente c USING(idcliente)  "+where+"  \n" +
+                "GROUP BY extract(year from fechalaboratorio), extract(month from fechalaboratorio)\n" +
+                "ORDER BY 1, 2') \n" +
+                "AS ct(ano double precision, enero double precision, febrero double precision, marzo double precision, "
+                + "abril double precision, mayo double precision, junio double precision, julio double precision, "
+                + "agosto double precision, septiembre double precision, octubre double precision, "
+                + "noviembre double precision, diciembre double precision)";
+                
+                rs = st.executeQuery(sql);
+                JSONArray array2 = new JSONArray();
+                while(rs.next()){
+                    JSONObject json1 = new JSONObject();
+                    
+                    json1.put("name", rs.getString("ano"));
+                    
+                    json1.put("data", new int[]{
+                        rs.getInt(2),rs.getInt(3),rs.getInt(4),
+                        rs.getInt(5),rs.getInt(6),rs.getInt(7),
+                        rs.getInt(8),rs.getInt(9),rs.getInt(10),
+                        rs.getInt(11),rs.getInt(12),rs.getInt(13)
+                    });
+                    array2.put(json1);
+                }
+                json.put("totalkva", array2);
+                
+                
+                sql = "SELECT to_char(fechalaboratorio, 'TMMonth') AS mes, extract(year from fechalaboratorio), t.serviciosalida, count(*) \n" +
+                    "  FROM protocolos p INNER JOIN transformador t USING(idtransformador)\n" +
+                    "INNER JOIN entrada e USING(identrada)\n" +
+                    "INNER JOIN cliente c USING(idcliente)  WHERE fechalaboratorio BETWEEN '01-01-2017' AND '09-08-2017'  "
+                    + "GROUP BY to_char(fechalaboratorio, 'TMMonth'), extract(year from fechalaboratorio),  "
+                    + "t.serviciosalida, extract(month from fechalaboratorio)  "
+                    + "ORDER BY extract(month from fechalaboratorio) ASC";
+                
+                rs = st.executeQuery(sql);
+                JSONArray array3 = new JSONArray();
+                
+                JSONObject jsonMes = new JSONObject();
+                while(rs.next()){
+                    
+                    jsonMes.put("mes", rs.getString("mes"));
+                    
+                    
+                    array3.put(jsonMes);
+                }
+                
+                json.put("totalservicios", array3);
+            }catch(JSONException ex){                
                 Logger.getLogger(NewServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             
