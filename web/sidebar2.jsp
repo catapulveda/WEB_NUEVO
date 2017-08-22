@@ -117,7 +117,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="control.jsp">
                                 Control
                                 <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-sitemap"></span>
                             </a>

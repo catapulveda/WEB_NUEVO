@@ -36,6 +36,7 @@ public class NewServlet extends HttpServlet {
             java.util.Date from = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("from").replace("/", "-"));
             java.util.Date to = new SimpleDateFormat("dd-MM-yyyy").parse(request.getParameter("to").replace("/", "-"));
             String where = (!from.toString().isEmpty()&&!to.toString().isEmpty())?" WHERE fechalaboratorio BETWEEN ''"+from+"'' AND ''"+to+"''  ":"";
+            /*******************************************************/
             sql = " SELECT * FROM crosstab(\n" +
             " 'SELECT extract(year from fechalaboratorio) AS ano, extract(month from fechalaboratorio) AS mes, count(*) \n" +
             " FROM protocolos  INNER JOIN transformador t USING(idtransformador) INNER JOIN entrada e USING(identrada)\n" +
@@ -67,7 +68,9 @@ public class NewServlet extends HttpServlet {
                     array.put(json1);
                 }
                 json.put("cantidad", array);
+                /*******************************************************/
                 
+                /*******************************************************/
                 sql = "SELECT * FROM crosstab(\n" +
                 " 'SELECT extract(year from fechalaboratorio) AS ano,  extract(month from fechalaboratorio) AS mes,\n" +
                 "sum(t.kvasalida) FROM protocolos p INNER JOIN transformador t USING(idtransformador)\n" +
@@ -79,7 +82,7 @@ public class NewServlet extends HttpServlet {
                 + "abril double precision, mayo double precision, junio double precision, julio double precision, "
                 + "agosto double precision, septiembre double precision, octubre double precision, "
                 + "noviembre double precision, diciembre double precision)";
-                
+                                
                 rs = st.executeQuery(sql);
                 JSONArray array2 = new JSONArray();
                 while(rs.next()){
@@ -95,30 +98,74 @@ public class NewServlet extends HttpServlet {
                     });
                     array2.put(json1);
                 }
-                json.put("totalkva", array2);
+                json.put("totalkva", array2);                
+                /*******************************************************/
                 
-                
-                sql = "SELECT to_char(fechalaboratorio, 'TMMonth') AS mes, extract(year from fechalaboratorio), t.serviciosalida, count(*) \n" +
-                    "  FROM protocolos p INNER JOIN transformador t USING(idtransformador)\n" +
-                    "INNER JOIN entrada e USING(identrada)\n" +
-                    "INNER JOIN cliente c USING(idcliente)  WHERE fechalaboratorio BETWEEN '01-01-2017' AND '09-08-2017'  "
-                    + "GROUP BY to_char(fechalaboratorio, 'TMMonth'), extract(year from fechalaboratorio),  "
-                    + "t.serviciosalida, extract(month from fechalaboratorio)  "
-                    + "ORDER BY extract(month from fechalaboratorio) ASC";
+                /*******************************************************/
+                sql = "SELECT * FROM crosstab(\n" +
+                " 'SELECT t.serviciosalida || '' '' || extract(year from fechalaboratorio), extract(month from fechalaboratorio), count(*) FROM protocolos p INNER JOIN transformador t USING(idtransformador) INNER JOIN entrada e USING(identrada) INNER JOIN cliente c USING(idcliente) \n" +
+                " "+where+" GROUP BY serviciosalida, to_char(fechalaboratorio, ''TMMonth''), extract(month from fechalaboratorio), extract(year from fechalaboratorio) ORDER BY 1,2') \n" +
+                "AS ct(servicio text, enero bigint, febrero bigint, marzo bigint, abril bigint, mayo bigint, junio bigint, julio bigint, agosto bigint, septiembre bigint, octubre bigint, noviembre bigint, diciembre bigint);";
                 
                 rs = st.executeQuery(sql);
-                JSONArray array3 = new JSONArray();
-                
-                JSONObject jsonMes = new JSONObject();
+                JSONArray array3 = new JSONArray();                
                 while(rs.next()){
+                    JSONObject json1 = new JSONObject();
                     
-                    jsonMes.put("mes", rs.getString("mes"));
+                    json1.put("name", rs.getString("servicio"));
                     
-                    
-                    array3.put(jsonMes);
+                    json1.put("data", new int[]{
+                        rs.getInt(2),rs.getInt(3),rs.getInt(4),
+                        rs.getInt(5),rs.getInt(6),rs.getInt(7),
+                        rs.getInt(8),rs.getInt(9),rs.getInt(10),
+                        rs.getInt(11),rs.getInt(12),rs.getInt(13)
+                    });
+                    array3.put(json1);
                 }
+                json.put("servicios", array3);
+                /*******************************************************/
                 
-                json.put("totalservicios", array3);
+                /*******************************************************/
+                sql = "SELECT * FROM crosstab(\n" +
+                "'SELECT CASE WHEN t.fase=1 THEN (''MONOFASICO'' || '' DEL '' || extract(year from fechalaboratorio)) ELSE (''TRIFASICO'' || '' DEL '' || extract(year from fechalaboratorio)) END AS fase,\n" +
+                "extract(month from fechalaboratorio) as ano, count(*) FROM protocolos p INNER JOIN transformador t USING(idtransformador)\n" +
+                "INNER JOIN entrada e USING(identrada) INNER JOIN cliente c USING(idcliente) "+where+" " +
+                "GROUP BY t.fase, extract(year from fechalaboratorio), extract(month from fechalaboratorio)\n" +
+                "ORDER BY 1,2') AS ct(fase text, enero bigint, febrero bigint, marzo bigint, abril bigint, mayo bigint, junio bigint, julio bigint, agosto bigint, septiembre bigint, octubre bigint, noviembre bigint, diciembre bigint)";
+                rs = st.executeQuery(sql);
+                JSONArray array4 = new JSONArray();  
+                while(rs.next()){
+                    JSONObject json1 = new JSONObject();
+                    
+                    json1.put("name", rs.getString("fase"));
+                    
+                    json1.put("data", new int[]{
+                        rs.getInt(2),rs.getInt(3),rs.getInt(4),
+                        rs.getInt(5),rs.getInt(6),rs.getInt(7),
+                        rs.getInt(8),rs.getInt(9),rs.getInt(10),
+                        rs.getInt(11),rs.getInt(12),rs.getInt(13)
+                    });
+                    array4.put(json1);
+                }
+                json.put("totalfases", array4);
+                /*******************************************************/
+                
+                /*******************************************************/
+                sql = "SELECT  t.serviciosalida, count(*) FROM protocolos p  INNER JOIN transformador t USING(idtransformador)\n" +
+                " INNER JOIN entrada e USING(identrada)\n" +
+                " INNER JOIN cliente c USING(idcliente) WHERE fechalaboratorio BETWEEN '"+from+"' AND '"+to+"' GROUP BY t.serviciosalida ORDER BY t.serviciosalida ASC";
+                rs = st.executeQuery(sql);
+                JSONArray array5 = new JSONArray();  
+                while(rs.next()){
+                    JSONObject json1 = new JSONObject();
+                    
+                    json1.put("name", rs.getString("serviciosalida"));
+                    
+                    json1.put("data", new int[]{rs.getInt("count")});
+                    array5.put(json1);
+                }
+                json.put("totalservicios", array5);
+                /*******************************************************/
             }catch(JSONException ex){                
                 Logger.getLogger(NewServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

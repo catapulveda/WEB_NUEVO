@@ -273,7 +273,7 @@
                     "url":"espanol.txt"
                 }
             });
-            
+           
             $('#divtablaClientes').addClass('fadeInUpBig animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
                 $('#divtablaClientes').removeClass('fadeInUpBig animated');
             });

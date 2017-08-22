@@ -12,9 +12,9 @@
     removedAbandonedTimeout="60"
     type="javax.sql.DataSource"
     url="jdbc:postgresql://localhost:5432/CDM2"
-    username="postgres"        
+    username="postgres"         
 -->
-<Context antiJARLocking="true" path="/WEB">
+<Context antiJARLocking="true" path="/">
     <Resource 
         auth="Container"
         driverClassName="org.postgresql.Driver"        

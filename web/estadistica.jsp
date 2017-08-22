@@ -105,35 +105,75 @@
                         <div class="panel-body">
                             <div id="chartCount"></div>
                         </div>
-                        
-                        <div class="panel-footer">
-                            
-                        </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-            </div>
+            </div><!-- GRAFICA CANTIDAD -->
             
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Total KVA Producios                            
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Total KVA Producidos                            
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div id="chartKVA"></div>
                         </div>
-                        
-                        <div class="panel-footer">
-                            
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+            </div><!-- GRAFICA KVA -->
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Servicios Realizados                            
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="chartSERVICIOS"></div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-            </div>
+            </div><!-- GRAFICA SERVICIOS -->
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> FASES                            
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="chartFASES"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+            </div><!-- GRAFICA FASES -->
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> FASES                            
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="chartTOTALSERVICIOS"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+            </div><!-- GRAFICA TOTAL SERVICIOS -->
             
         </div>
         <!-- /#page-wrapper -->
@@ -167,7 +207,8 @@
     <!-- datetimepicker -->
     <script type="text/javascript" src="js/jquery-ui.js" charset="UTF-8"></script>    
     
-    <script>                        
+    <script>    
+        var options;
         $(document).ready(function(){
             
             var dateFormat = "mm/dd/yy",
@@ -196,7 +237,7 @@
                     }
                 });
             
-            var options = {
+            options = {
                 exporting: {
                     chartOptions: { // specific options for the exported image
                         plotOptions: {
@@ -248,46 +289,37 @@
                     }
                 },
                 series: [{}]
-            };
-            
-            
-            var url =  "http://localhost:8080/WEB/NewServlet?from=01/01/2016&to=08/08/2017";            
-            $.getJSON(url,  function(data) {
-                options.chart.renderTo = 'chartCount';
-                options.series = data.cantidad;
-                options.title.text = 'Total Intervenidos';
-                var chartCount = new Highcharts.Chart(options);
-                
-                var opciones = options;
-                opciones.chart.renderTo = 'chartKVA';
-                opciones.series = data.totalkva;
-                opciones.title.text = 'Total KVA Producidos';
-                var chartKVA = new Highcharts.Chart(opciones);
-            });
+            };                                    
                                           
         });
         
         function cargar(){
-            var url =  "http://localhost:8080/WEB/NewServlet?from=01/02/2017&to=04/02/2017";            
-            $.getJSON(url,  function(data) {                
-                options.series[0] = data.series;                
-                var chart = new Highcharts.Chart(options);
+            var url =  "NewServlet?from="+$('#from').val()+"&to="+$('#to').val();            
+            $.getJSON(url,  function(data) {
+                options.chart.renderTo = 'chartCount';
+                options.series = data.cantidad;
+                options.title.text = 'TOTAL INTERVENIDOS';
+                var chartCount = new Highcharts.Chart(options);
                 
-            });
-        }
-        
-        function cargarGrafica(grafica, datos, tittle, ejeY){
-            $.ajax({
-                url : "NewServlet?from="+$("#from").val()+"&to="+$("#to").val(),
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert(errorThrown);
-                },
-                success : function(data) {
-                    Highcharts.chart('chartKVA', {                                                                                                                        
-                        
-                        series: [{}]
-                    });
-                }
+                options.chart.renderTo = 'chartKVA';
+                options.series = data.totalkva;
+                options.title.text = 'KVA PRODUCIDOS';
+                var chartKVA = new Highcharts.Chart(options);
+                
+                options.chart.renderTo = 'chartSERVICIOS';
+                options.series = data.servicios;
+                options.title.text = 'SERVICIOS REALIZADOS';
+                var chartSERV = new Highcharts.Chart(options);
+                
+                options.chart.renderTo = 'chartFASES';
+                options.series = data.totalfases;
+                options.title.text = 'RELACION POR FASE';
+                var chartFASES = new Highcharts.Chart(options);
+                
+                options.chart.renderTo = 'chartTOTALSERVICIOS';
+                options.series = data.totalservicios;
+                options.title.text = 'TOTAL POR SERVICIOS REALIZADOS';
+                var chartTOTALSERVICIOS = new Highcharts.Chart(options);
             });
         }
         
