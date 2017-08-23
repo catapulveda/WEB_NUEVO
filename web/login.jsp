@@ -159,15 +159,15 @@
         
         <script>
              $('#login-form-link').click(function(e) {
-		//$("#login-form").delay(500).fadeIn(300);
- 		//$("#register-form").fadeOut(300);
-                
+                //$("#login-form").delay(500).fadeIn(300);
+                //$("#register-form").fadeOut(300);
+                    
                 $("#login-form").delay(300).slideDown('slow');
- 		$("#register-form").slideUp('slow');
-                
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
+                $("#register-form").slideUp('slow');
+                    
+                $('#register-form-link').removeClass('active');
+                $(this).addClass('active');
+                e.preventDefault();
             });
             $('#register-form-link').click(function(e) {
                 //$("#register-form").delay(500).fadeIn(300);
