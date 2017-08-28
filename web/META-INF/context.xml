@@ -14,7 +14,7 @@
     url="jdbc:postgresql://localhost:5432/CDM2"
     username="postgres"         
 -->
-<Context antiJARLocking="true" path="/">
+<Context antiJARLocking="true" path="">
     <Resource 
         auth="Container"
         driverClassName="org.postgresql.Driver"        
