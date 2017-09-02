@@ -37,7 +37,16 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+    <style>
+        @font-face {
+            font-family: EnterSans;
+            src: url(entsans.ttf);
+        }
+        h1{
+            font-family: EnterSans;
+            text-align: center;                
+        }
+    </style>
 </head>
 
 <body>
@@ -50,8 +59,7 @@
         <div id="page-wrapper" class="fondobg">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
-                    <button type="button" class="btn btn-primary" id="btn">Boton</button>
+                    <h1 class="page-header">CDM TRANSFORMADORES</h1>                    
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

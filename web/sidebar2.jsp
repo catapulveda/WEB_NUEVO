@@ -111,12 +111,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Remisiones
-                                <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-list-alt"></span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="control.jsp">
                                 Control
                                 <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-sitemap"></span>
@@ -127,7 +121,8 @@
                                 Estadistica
                                 <span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-line-chart"></span>
                             </a>
-                        </li>                        
+                        </li>
+                        <%/*
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -146,6 +141,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        */%>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

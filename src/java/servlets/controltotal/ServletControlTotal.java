@@ -32,7 +32,14 @@ public class ServletControlTotal extends HttpServlet {
             con = source.getConnection();
             st = con.createStatement();
             
-            String sql = "SELECT e.identrada, cli.nombrecliente, e.lote, t.numeroserie,\n" +
+            String sql = "SELECT count(*) FROM entrada e INNER JOIN transformador t USING(identrada) INNER JOIN cliente cli USING (idcliente) INNER JOIN ciudad ciu USING (idciudad) LEFT JOIN despacho d USING(iddespacho) LEFT JOIN remision r USING(idremision) ";
+            int count = 0;
+            rs = st.executeQuery(sql);
+            if(rs.next()){
+                count = rs.getInt("count");
+            }
+            
+            sql = "SELECT e.identrada, cli.nombrecliente, e.lote, t.numeroserie,\n" +
             "t.numeroempresa, t.fase, t.marca, t.kvasalida, t.estado, r.numero_remision,\n" +
             "d.nodespacho, e.fecharecepcion, ciu.nombreciudad, e.contrato, e.op, e.centrodecostos\n" +
             "FROM entrada e INNER JOIN transformador t USING(identrada)\n" +
@@ -45,9 +52,18 @@ public class ServletControlTotal extends HttpServlet {
             rs = st.executeQuery(sql);
             
             JSONObject json = new JSONObject();
+            json.put("draw", 2);
+            json.put("recordsTotal", count);
+            json.put("recordsFiltered", count);
+            
             org.json.simple.JSONArray datos = new JSONArray();
-
+            
             while(rs.next()){
+                org.json.simple.JSONArray datos2 = new JSONArray();
+                                
+                datos2.add(rs.getString("nombrecliente"));
+                datos.add(datos2);
+                /*
                 org.json.simple.JSONObject object = new JSONObject();
                                
                 object.put("identrada", rs.getInt("identrada"));
@@ -57,6 +73,7 @@ public class ServletControlTotal extends HttpServlet {
                 object.put("fase", rs.getInt("fase"));
                 object.put("marca", rs.getString("marca"));
                 datos.add(object);
+                */
             }
             
             json.put("data", datos);
@@ -72,7 +89,7 @@ public class ServletControlTotal extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
     @Override

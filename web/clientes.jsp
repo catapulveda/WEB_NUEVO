@@ -206,6 +206,7 @@
             alertify.defaults.theme.input = "form-control";            
         
             var dataTable = $('#tablaClientes').DataTable({
+                "processing": true,
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
                 destroy: true,
                 responsive: true,

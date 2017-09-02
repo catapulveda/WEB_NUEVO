@@ -216,6 +216,7 @@
             alertify.defaults.theme.input = "form-control";
             
             dataTable = $('#TablaLotes').DataTable({
+                "processing": true,
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
                 "scrollX": true,
                 destroy: true,
@@ -318,6 +319,7 @@
         function abrirLote(idlote){
             $('#divTablaLotes').slideUp('slow');
             dataTable_DatosLote = $('#TablaDatosLote').DataTable({
+                "processing": true,
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],               
                 destroy: true,
                 responsive: true,

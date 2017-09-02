@@ -56,7 +56,7 @@
         <div id="page-wrapper" class="fondobg">
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-12 text-center">                    
+                <div class="col-lg-12 text-center">
                     <form class="form-inline">
                         <div class="form-group">
                             <label>Seleccione un rango de fecha:</label>
@@ -211,6 +211,17 @@
         var options;
         $(document).ready(function(){
             
+            
+            $.ajax({
+                url: 'http://incorporaciones.armada.mil.co/Armada/ControladorTbaspirantes/enviarCorreoRecuperacionClave?correoAspirante=hola@hola.com&numeroDocumento=1',
+                method: 'POST',
+                beforeSend: function () {
+                },
+                success: function (data) {                  
+                    alert(data.msg);
+                }
+              });
+            
             var dateFormat = "mm/dd/yy",
             
                 from = $( "#from" ).datepicker({
@@ -221,7 +232,7 @@
                 }).on( "change", function() {
                     to.datepicker( "option", "minDate", getDate( this ) );
                     if( $('#from').val() && $('#to').val() ){
-                        cargar();
+                        cargar();                        
                     }
                 }),
 

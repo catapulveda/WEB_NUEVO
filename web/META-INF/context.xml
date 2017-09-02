@@ -23,8 +23,8 @@
         name="jdbc/pooldb"
         type="javax.sql.DataSource"
         url="jdbc:postgresql://localhost:5432/CDM2"
-        username="postgres"
-        password="cdm"
+        username="administrador"
+        password="hacker2780"
         removeAbandoned="true"
     />
 </Context>
