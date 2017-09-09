@@ -31,6 +31,7 @@ public class ServletListarClientes extends HttpServlet {
             }else{
                 sql = "SELECT * FROM cliente ORDER BY nombrecliente";
             }
+            
             DataSource source = PoolConexiones.PoolConexiones();
             con = source.getConnection();
             st = con.createStatement();
